@@ -1,5 +1,15 @@
 require 'digest/crc'
 
+class Digest::CRC16 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16/crc16_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 algorithm.
@@ -79,8 +89,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16/crc16_ext'; rescue LoadError; end
 end

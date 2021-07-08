@@ -1,5 +1,15 @@
 require 'digest/crc8'
 
+class Digest::CRC8_1Wire < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc8_1wire/crc8_1wire_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC8 1-Wire algorithm.
@@ -30,8 +40,4 @@ module Digest
 
   # @deprecated Please use {CRC8_1Wire} instead.
   CRC81Wire = CRC8_1Wire
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc8_1wire/crc8_1wire_ext'; rescue LoadError; end
 end

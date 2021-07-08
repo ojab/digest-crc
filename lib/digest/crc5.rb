@@ -1,5 +1,15 @@
 require 'digest/crc'
 
+class Digest::CRC5 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc5/crc5_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC5 algorithm.
@@ -71,8 +81,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc5/crc5_ext'; rescue LoadError; end
 end

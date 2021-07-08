@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16Genibus < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_genibus/crc16_genibus_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 Genibus algorithm.
@@ -65,8 +75,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_genibus/crc16_genibus_ext'; rescue LoadError; end
 end

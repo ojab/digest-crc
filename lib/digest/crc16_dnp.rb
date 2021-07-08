@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16DNP < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_dnp/crc16_dnp_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 DNP algorithm.
@@ -62,8 +72,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_dnp/crc16_dnp_ext'; rescue LoadError; end
 end

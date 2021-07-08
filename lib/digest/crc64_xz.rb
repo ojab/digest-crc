@@ -1,5 +1,15 @@
 require 'digest/crc64'
 
+class Digest::CRC64XZ < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc64_xz/crc64_xz_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC64 XZ algorithm.
@@ -83,8 +93,4 @@ module Digest
     ].freeze
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc64_xz/crc64_xz_ext'; rescue LoadError; end
 end

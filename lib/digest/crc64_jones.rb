@@ -1,5 +1,15 @@
 require 'digest/crc64'
 
+class Digest::CRC64Jones < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc64_jones/crc64_jones_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC64 Jones algorithm.
@@ -81,8 +91,4 @@ module Digest
     ].freeze
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc64_jones/crc64_jones_ext'; rescue LoadError; end
 end

@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16Modbus < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_modbus/crc16_modbus_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 Modbus algorithm.
@@ -45,8 +55,4 @@ module Digest
     ].freeze
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_modbus/crc16_modbus_ext'; rescue LoadError; end
 end

@@ -1,5 +1,15 @@
 require 'digest/crc'
 
+class Digest::CRC8 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc8/crc8_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC8 algorithm.
@@ -58,8 +68,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc8/crc8_ext'; rescue LoadError; end
 end

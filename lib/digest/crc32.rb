@@ -1,5 +1,15 @@
 require 'digest/crc'
 
+class Digest::CRC32 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc32/crc32_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC32 algorithm.
@@ -115,8 +125,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc32/crc32_ext'; rescue LoadError; end
 end

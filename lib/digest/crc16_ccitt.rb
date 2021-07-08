@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16CCITT < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_ccitt/crc16_ccitt_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 CCITT algorithm.
@@ -59,8 +69,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_ccitt/crc16_ccitt_ext'; rescue LoadError; end
 end

@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16XModem < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_xmodem/crc16_xmodem_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 XMmodem algorithm.
@@ -57,8 +67,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_xmodem/crc16_xmodem_ext'; rescue LoadError; end
 end

@@ -1,5 +1,15 @@
 require 'digest/crc32'
 
+class Digest::CRC32BZip2 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc32_bzip2/crc32_bzip2_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC32 BZip2 algorithm
@@ -57,8 +67,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc32_bzip2/crc32_bzip2_ext'; rescue LoadError; end
 end

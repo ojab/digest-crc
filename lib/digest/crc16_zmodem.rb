@@ -1,5 +1,15 @@
 require 'digest/crc16'
 
+class Digest::CRC16ZModem < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_zmodem/crc16_zmodem_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC16 ZModem algorithm.
@@ -57,8 +67,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_zmodem/crc16_zmodem_ext'; rescue LoadError; end
 end

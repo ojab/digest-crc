@@ -1,5 +1,15 @@
 require "digest/crc16"
 
+class Digest::CRC16Kermit < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc16_kermit/crc16_kermit_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements Kermit's CRC16 function.
@@ -59,8 +69,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc16_kermit/crc16_kermit_ext'; rescue LoadError; end
 end

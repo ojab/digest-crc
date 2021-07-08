@@ -1,5 +1,15 @@
 require 'digest/crc'
 
+class Digest::CRC24 < Digest::CRC; end
+
+if RUBY_ENGINE == 'ruby'
+  begin;
+    require 'digest/crc24/crc24_ext'
+    return
+  rescue LoadError
+  end
+end
+
 module Digest
   #
   # Implements the CRC24 algorithm.
@@ -80,8 +90,4 @@ module Digest
     end
 
   end
-end
-
-if RUBY_ENGINE == 'ruby'
-  begin; require 'digest/crc24/crc24_ext'; rescue LoadError; end
 end
